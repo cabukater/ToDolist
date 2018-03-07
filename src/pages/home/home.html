@@ -1,14 +1,66 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
-</ion-header>
+<ion-header class="header">
+    
+    <ion-row>
+        <ion-col>
+        <p class="big-date">    {{hora_agora | date : 'd, MMM  y' }}</p>
+        
+        </ion-col>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
-</ion-content>
+   
+        </ion-row>
+       
+
+        <ion-row>
+            <ion-col>
+        <p class="clock">      {{hora_agora | date : 'shortTime'}}</p>
+        </ion-col>
+        </ion-row>
+ </ion-header>
+
+
+ <ion-content class="home">
+    <ion-grid>
+        <ion-row >
+            <ion-col>
+                <h3 class="titulo">Tarefas não concluidas</h3>
+              </ion-col>
+              </ion-row>
+       <ion-row>
+          <ion-col>
+             <ion-list>
+                <ion-item (press)="updateTodo(todo)" *ngFor="let todo of todos; let i=index " (click)="abreDetalhe(todo)">
+
+                  <ion-row>
+                    <ion-col col-2> <button ion-button (click)="deleteTodo(todo)" title="concluir Tarefa" class="button-list" icon-only>
+                        <ion-icon ios="ios-flag" md="md-flag"></ion-icon>
+                        </button></ion-col>
+                    <ion-col col-8>
+                      <ion-row>
+                        <ion-col class="title-list"><h2>{{todo.title}}</h2> </ion-col>
+                      </ion-row>
+                      <ion-row>
+                          <ion-col class="desc-list"><p>{{todo.texto}}</p> </ion-col>
+                        </ion-row>
+                    </ion-col>
+                    <ion-col col-2>
+                        <button ion-button (click)="updateTodo(todo)" icon-only class="button-list">
+                            <ion-icon ios="ios-brush" md="md-brush" ></ion-icon>
+                        </button>
+                    </ion-col>
+                  </ion-row>
+                  
+                   
+                   
+                  
+                </ion-item>
+             </ion-list>
+          </ion-col>
+       </ion-row>
+    
+    </ion-grid>
+    <ion-fab right bottom>
+        <button ion-fab (click)="createTodo(todo)" class="button-orange">
+           <ion-icon name="add"></ion-icon>
+        </button>
+     </ion-fab>
+ </ion-content>

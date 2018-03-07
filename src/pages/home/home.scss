@@ -1,3 +1,103 @@
-page-home {
+.ios, .md, .wp {
+      .header{
+        background-image:url('../assets/imgs/bg-dia.jpg');
+        height: 30%;
+        width: 100%;
+        background-size: 100%;
 
-}
+    }
+    .header p{
+      color: #fff;
+      justify-content	:flex-start;
+
+    }
+    
+        page-home {
+      
+          .scroll-content {
+            background-color: #333333;
+            display: flex ;
+
+          
+          
+            
+          }
+    //lista
+          ion-list.list.list-ios {
+          
+            padding-top: 8px;
+          
+        }
+        ion-list ion-item{
+          background-color: #4a4848;
+          color: #fff;
+          margin-bottom: 5px;
+          border: 0;
+        }
+      
+    .item-block,
+        .item-inner{
+          border: 0 !important  ;
+          padding-left: 0 !important;
+          padding-right: 0 !important;
+        }
+      
+        .big-date{
+          font-size: 32px;
+          justify-content	:flex-end;
+
+          
+        }
+        .clock{
+          font-size: 23px;
+          text-align: right;
+          margin-top: 17%;
+          margin-right: 2%;
+        }
+          
+        }
+        .titulo{
+          color: #fff;
+          text-align: center;
+        }
+
+        //Botao de edicao
+        .button-list{
+          background-color: transparent;
+          border: none;
+      }
+        .button-orange{
+          background: -webkit-linear-gradient(360deg, #FD6F46 10%, #FB9832 360%); /* Chrome 10+, Saf5.1+ */ background: -moz-linear-gradient(360deg, #FD6F46 10%, #FB9832 360%); /* FF3.6+ */ background: linear-gradient(360deg, #FD6F46 10%, #FB9832 360%); /* W3C */
+        }
+
+        .alert-wrapper{
+          background-color: #4a4848 ; 
+          color: #fff;
+        }
+
+    
+        .alert-wrapper button{
+          border:0;
+        }
+
+        .btn-cancel {
+          background-color: #e13838 !important;
+          color: #fff !important;
+          font-size: 19px !important;
+      }
+
+      .btn-action {
+        background-color: #2f961b !important;
+        color: #fff !important;
+        font-size: 19px !important;
+      }
+
+      .alert-input-wrapper {
+        color: #000;
+        height: 45px;
+        font-size: 16px;
+    }
+
+
+
+  }
