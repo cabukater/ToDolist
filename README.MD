@@ -9,7 +9,7 @@
 - arrumar codigo Css para evitar repetição de codigo e inserir meu framework proprio em SASS
 
 # Desenvolvimento
-Esse App foi construido para um teste e foi produzido em poucas horas durante 2 dias com muita dedicação, (não conhecia o Ionic3 e o novo Ionice por isso acredito que criei algo legal).
+Esse App foi construido para um teste e foi produzido em poucas horas durante 2 dias com muita dedicação, (não conhecia o Ionic3 e o novo Angular  e por isso acredito que criei algo legal).
 
 Fico á disposição para sugestão de melhorias  e nova funções.
 
