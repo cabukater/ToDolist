@@ -1,6 +1,6 @@
 # Proximos Updates:
 
-- formulario de atualização e criação via modal e tirar os alerts;
+- formulario de atualização e criação via modal e tirar os alerts (que não coloquei pelo meu tempo corrido essa semana);
 - loadings..
 - previsão do tempo com forecast.io para o header da home.;
 - abas para navegar entre as tarefas concluidas e em aberto.
