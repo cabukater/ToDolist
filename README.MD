@@ -27,7 +27,7 @@ Descrição abre em página modal.
 
 # Tecnologia:
 
-- Angula r5.0.3 
+- Angular 5.0.3 
 - Ionic 3 
 - Um pouco de Sass
 - O bom e velho CSS
