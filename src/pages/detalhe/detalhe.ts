@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,AlertController } from 'ionic-angular';
-import { Todos } from '../../providers/todos/todos';
+import { Modal, NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
 import { HomePage } from '../../pages/home/home';
 
 /**
@@ -10,19 +9,21 @@ import { HomePage } from '../../pages/home/home';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+
 @Component({
   selector: 'page-detalhe',
   templateUrl: 'detalhe.html',
 })
 export class DetalhePage {
+ 
+  view: any;
   title: any;
   texto: any;
   todo: any;
   todoService: any;
   tarefa:any;
 
-  constructor(public navCtrl: NavController, TodoService: Todos,public navParams: NavParams, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController,public navParams: NavParams , view:ViewController, public  modal:ModalController) {
     this.tarefa = this.navParams.get('tarefa');
 
 
@@ -37,6 +38,10 @@ export class DetalhePage {
     console.log('ionViewDidLoad DetalhePage');
   }
 
+
+  cancel(){
+   this.view.dismiss();
+  }
 
 
  

@@ -15,7 +15,7 @@ import { Todos } from '../providers/todos/todos';
   declarations: [
     MyApp,
     HomePage,
-    DetalhePage
+    DetalhePage,
     
    
     

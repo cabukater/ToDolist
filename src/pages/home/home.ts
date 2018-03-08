@@ -1,6 +1,5 @@
 import { Component } from "@angular/core";
-import { DatePipe } from '@angular/common';
-import { NavController, AlertController, Nav} from 'ionic-angular';
+import { NavController, AlertController, Nav, ModalController} from 'ionic-angular';
 import { Todos } from '../../providers/todos/todos';
 import { DetalhePage } from '../../pages/detalhe/detalhe';
 
@@ -17,6 +16,7 @@ import { DetalhePage } from '../../pages/detalhe/detalhe';
 
 export class HomePage {
 
+  toggleStyle: any;
   ModalController: any;
   public hora_agora = new Date();
 
@@ -26,9 +26,11 @@ export class HomePage {
 
  
   constructor(
-    public todoService: Todos, public alertCtrl: AlertController, public navCtrl:NavController ){
+    public todoService: Todos, public alertCtrl: AlertController, public modal: ModalController,public navCtrl:NavController ){
  
   }
+
+  
 
 
 
@@ -38,10 +40,37 @@ export class HomePage {
     this.todoService.getTodos().then((data) => {
       this.todos = data;
     });
+
+    
   }
+//imagens do fundo conforme  a hora do dia
+  getBg(){
+    let time:any = new Date().getHours();
+
+    if ( time > 6 && time <= 17  ){
+      return "url('https://firebasestorage.googleapis.com/v0/b/todoimages.appspot.com/o/day.jpg?alt=media&token=6c84d505-5b6f-42cc-ab7e-590968753129')";
+  
+      ;
+        
+    }if( time == 18  && time <= 23  ){
+      return "url('https://firebasestorage.googleapis.com/v0/b/todoimages.appspot.com/o/night.jpg?alt=media&token=faffda58-0a34-4ae3-be5e-da814d759bcd')";
+      
+      
+    }if (time => 0  && time <=  5  ){
+      return "url('https://firebasestorage.googleapis.com/v0/b/todoimages.appspot.com/o/morning.jpg?alt=media&token=e8962fc1-a574-46cf-83e2-38f65c8da96b')";
+     
+    }
+
+  
+  }
+
+  
  //Abrir detalhe da tarefa
   abreDetalhe(todo:any){
-    this.navCtrl.push(DetalhePage, {tarefa:todo});
+    
+   // this.navCtrl.push(DetalhePage, {tarefa:todo});
+    const myModal = this.modal.create(DetalhePage, {tarefa:todo});
+    myModal.present();
  
    }
 

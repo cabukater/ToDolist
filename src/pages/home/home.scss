@@ -1,6 +1,6 @@
 .ios, .md, .wp {
       .header{
-        background-image:url('../assets/imgs/bg-dia.jpg');
+        background-image:url('../../assets/imgs/bg-header.jpg');
         height: 30%;
         width: 100%;
         background-size: 100%;
@@ -14,14 +14,7 @@
     
         page-home {
       
-          .scroll-content {
-            background-color: #333333;
-            display: flex ;
-
-          
-          
-            
-          }
+         
     //lista
           ion-list.list.list-ios {
           
