@@ -16,8 +16,8 @@ Fico á disposição para sugestão de melhorias  e nova funções.
 
 # Funções:
 
-Incluir tarefas a realizar,
-informar as horas
+Incluir tarefas que quero  realizar,
+informar as horas.
 
 
 # Extras:
