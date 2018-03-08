@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Modal, NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
+import { Modal, NavParams, ViewController, ModalController } from 'ionic-angular';
 import { HomePage } from '../../pages/home/home';
 
 /**
@@ -16,14 +16,13 @@ import { HomePage } from '../../pages/home/home';
 })
 export class DetalhePage {
  
-  view: any;
+
   title: any;
   texto: any;
-  todo: any;
-  todoService: any;
+
   tarefa:any;
 
-  constructor(public navCtrl: NavController,public navParams: NavParams , view:ViewController, public  modal:ModalController) {
+  constructor(private navParams: NavParams ,private view:ViewController) {
     this.tarefa = this.navParams.get('tarefa');
 
 
@@ -39,7 +38,7 @@ export class DetalhePage {
   }
 
 
-  cancel(){
+  dismiss(){
    this.view.dismiss();
   }
 

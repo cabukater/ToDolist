@@ -20,14 +20,14 @@
            <ion-row>
               <ion-col>
                  <ion-list>
-                    <ion-item (press)="updateTodo(todo)" *ngFor="let todo of todos; let i=index " (click)="abreDetalhe(todo)">
+                    <ion-item *ngFor="let todo of todos; let i=index " >
                     <ion-row>
                        <ion-col col-2>
                           <button ion-button (click)="deleteTodo(todo)" title="concluir Tarefa" class="button-list" icon-only>
                              <ion-icon ios="ios-flag" md="md-flag"></ion-icon>
                           </button>
                        </ion-col>
-                       <ion-col col-8>
+                       <ion-col col-8  (click)="abreDetalhe(todo)">
                           <ion-row>
                              <ion-col class="title-list">
                                 <h2>{{todo.title}}</h2>

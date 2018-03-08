@@ -1,17 +1,36 @@
 <ion-content class="main-view">
     <div class="overlay" (click)="dismiss()"></div>
     <div class="modal_content">
+       
       <ion-card>
-      <h2>Welcome to Ionic!</h2>
-      <ion-card-content>
-        <ion-card-title>
-            <p>{{tarefa.title}}</p>
-        </ion-card-title>
-        <p>  {{tarefa.texto}}</p> 
+          <ion-card-header class="header button-orange">
         
-        <button   (click)="cancel()">FEchar</button>
+                    <ion-card-title>
+                        <h2>{{tarefa.title}}</h2>
+                    </ion-card-title>
+                    <div class="badge">
+                        <ion-icon ios="ios-bulb" md="md-bulb"></ion-icon>
+                    </div>
+               
+             
+            </ion-card-header>
+     
+      <ion-card-content>
+       <h3>Descrição:</h3>
+        <p>  {{tarefa.texto}}</p> 
+     
       </ion-card-content>
   
+      <ion-footer>
+          <ion-toolbar>
+            <button  (click)="dismiss()" ion-button icon-left block class="button-orange">
+                <ion-icon ios="ios-arrow-back" md="md-arrow-back" ></ion-icon>
+                 Voltar para a lista
+    
+              </button>
+            </ion-toolbar>
+      </ion-footer>
+      
       
   
     </ion-card>

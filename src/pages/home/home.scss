@@ -1,10 +1,11 @@
 .ios, .md, .wp {
       .header{
-        background-image:url('../../assets/imgs/bg-header.jpg');
-        height: 30%;
+        height: 31%;
         width: 100%;
         background-size: 100%;
-
+        background-repeat: no-repeat;
+        background-color: #333;
+        box-shadow: none;
     }
     .header p{
       color: #fff;
@@ -91,6 +92,22 @@
         font-size: 16px;
     }
 
+       
+    ion-item.item.item-block.item-md {
+      height: 84px;
+  }
+  .item-md p {
+    margin: 0 0 2px;
+    overflow: inherit;
+    font-size: 1.4rem;
+    line-height: normal;
 
+    color: #a9a6a6;
+    width: 163px;
+    overflow: hidden;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
   }
