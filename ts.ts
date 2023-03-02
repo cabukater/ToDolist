@@ -1,32 +1,39 @@
 describe('startCharon', () => {
   let emitlistSpy: jest.SpyInstance;
   let getSessionSpy: jest.SpyInstance;
+  let charonServiceMock: any;
+  let caronteService: CaronteService;
+  const token = 'some_token';
 
   beforeEach(() => {
-    emitlistSpy = jest.spyOn(caronteService.emitList, 'next');
+    emitlistSpy = jest.spyOn(caronteService.emitlist, 'next');
     getSessionSpy = jest.spyOn(caronteService.getSession, 'next');
+    charonServiceMock = {
+      initialize: jest.fn().mockReturnValue({
+        subscribe: jest.fn((callback) => {
+          const response = {
+            type: HttpEventType.Response,
+            headers: {
+              get: jest.fn().mockReturnValue('some_session'),
+            },
+          } as any;
+          callback(response);
+        }),
+      }),
+      getRelations: jest.fn().mockReturnValue([{ rel: 'some_rel', href: 'some_href' }]),
+    };
+    caronteService = new CaronteService(charonServiceMock as any);
   });
 
   it('should emit the relations and charon session when a response is received', () => {
-    const relations = [{ rel: 'some_rel', href: 'some_href' }];
-    const charonSession = 'some_session';
-    const response = {
-      type: 'response',
-      headers: {
-        get: jest.fn().mockReturnValue(charonSession),
-      },
-    } as any;
+    caronteService.startCharon(token);
 
-    charonServiceMock.initialize.mockReturnValue({
-      subscribe: jest.fn((callback) => {
-        callback(response);
-      }),
-    } as any);
-    charonServiceMock.getRelations.mockReturnValue(relations);
-
-    caronteService.startCharon('some_token');
-
-    expect(emitlistSpy).toHaveBeenCalledWith(relations);
-    expect(getSessionSpy).toHaveBeenCalledWith(charonSession);
+    expect(charonServiceMock.initialize).toHaveBeenCalledWith(environment.charonEntrypoint, {
+      headers: expect.any(HttpHeaders),
+      observe: 'response',
+    });
+    expect(charonServiceMock.getRelations).toHaveBeenCalled();
+    expect(emitlistSpy).toHaveBeenCalledWith([{ rel: 'some_rel', href: 'some_href' }]);
+    expect(getSessionSpy).toHaveBeenCalledWith('some_session');
   });
 });
