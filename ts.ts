@@ -1,39 +1,59 @@
-describe('startCharon', () => {
-  let emitlistSpy: jest.SpyInstance;
-  let getSessionSpy: jest.SpyInstance;
-  let charonServiceMock: any;
+describe('CaronteService', () => {
   let caronteService: CaronteService;
-  const token = 'some_token';
+  let charonServiceMock: jest.Mocked<CharonService>;
 
   beforeEach(() => {
-    emitlistSpy = jest.spyOn(caronteService.emitlist, 'next');
-    getSessionSpy = jest.spyOn(caronteService.getSession, 'next');
     charonServiceMock = {
-      initialize: jest.fn().mockReturnValue({
-        subscribe: jest.fn((callback) => {
-          const response = {
-            type: HttpEventType.Response,
-            headers: {
-              get: jest.fn().mockReturnValue('some_session'),
-            },
-          } as any;
-          callback(response);
-        }),
-      }),
-      getRelations: jest.fn().mockReturnValue([{ rel: 'some_rel', href: 'some_href' }]),
-    };
-    caronteService = new CaronteService(charonServiceMock as any);
+      initialize: jest.fn(),
+      getRelations: jest.fn(),
+    } as jest.Mocked<CharonService>;
+
+    caronteService = new CaronteService(charonServiceMock);
   });
 
-  it('should emit the relations and charon session when a response is received', () => {
-    caronteService.startCharon(token);
+  describe('startCharon', () => {
+    it('should call charonService.initialize with the correct parameters', () => {
+      const token = 'some_token';
 
-    expect(charonServiceMock.initialize).toHaveBeenCalledWith(environment.charonEntrypoint, {
-      headers: expect.any(HttpHeaders),
-      observe: 'response',
+      caronteService.startCharon(token);
+
+      expect(charonServiceMock.initialize).toHaveBeenCalledWith(
+        'charon_entrypoint',
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'x-itau-correlationID': expect.any(String),
+            apikey: 'some_apikey',
+          },
+          observe: 'response',
+        }
+      );
     });
-    expect(charonServiceMock.getRelations).toHaveBeenCalled();
-    expect(emitlistSpy).toHaveBeenCalledWith([{ rel: 'some_rel', href: 'some_href' }]);
-    expect(getSessionSpy).toHaveBeenCalledWith('some_session');
+
+    it('should emit the relations and charon session when a response is received', () => {
+      const relations = [{ rel: 'some_rel', href: 'some_href' }];
+      const charonSession = 'some_session';
+      const response = {
+        type: 'response',
+        headers: {
+          get: jest.fn().mockReturnValue(charonSession),
+        },
+      } as any;
+
+      charonServiceMock.initialize.mockReturnValue({
+        subscribe: jest.fn((callback) => {
+          callback(response);
+        }),
+      } as any);
+      charonServiceMock.getRelations.mockReturnValue(relations);
+
+      const emitlistSpy = jest.spyOn(caronteService.emitList, 'next');
+      const getSessionSpy = jest.spyOn(caronteService.getSession, 'next');
+
+      caronteService.startCharon('some_token');
+
+      expect(emitlistSpy).toHaveBeenCalledWith(relations);
+      expect(getSessionSpy).toHaveBeenCalledWith(charonSession);
+    });
   });
 });
