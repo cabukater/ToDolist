@@ -9,15 +9,15 @@ describe('startCharon', () => {
       },
     } as any;
 
+    const emitlistSpy = jest.spyOn(caronteService.emitList, 'next');
+    const getSessionSpy = jest.spyOn(caronteService.getSession, 'next');
+
     charonServiceMock.initialize.mockReturnValue({
       subscribe: jest.fn((callback) => {
         callback(response);
       }),
     } as any);
     charonServiceMock.getRelations.mockReturnValue(relations);
-
-    const emitlistSpy = jest.spyOn(caronteService.emitList, 'next');
-    const getSessionSpy = jest.spyOn(caronteService.getSession, 'next');
 
     caronteService.startCharon('some_token');
 
