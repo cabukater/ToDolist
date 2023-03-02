@@ -1,4 +1,12 @@
 describe('startCharon', () => {
+  let emitlistSpy: jest.SpyInstance;
+  let getSessionSpy: jest.SpyInstance;
+
+  beforeEach(() => {
+    emitlistSpy = jest.spyOn(caronteService.emitList, 'next');
+    getSessionSpy = jest.spyOn(caronteService.getSession, 'next');
+  });
+
   it('should emit the relations and charon session when a response is received', () => {
     const relations = [{ rel: 'some_rel', href: 'some_href' }];
     const charonSession = 'some_session';
@@ -8,9 +16,6 @@ describe('startCharon', () => {
         get: jest.fn().mockReturnValue(charonSession),
       },
     } as any;
-
-    const emitlistSpy = jest.spyOn(caronteService.emitList, 'next');
-    const getSessionSpy = jest.spyOn(caronteService.getSession, 'next');
 
     charonServiceMock.initialize.mockReturnValue({
       subscribe: jest.fn((callback) => {
