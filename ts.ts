@@ -1,17 +1,27 @@
-it('should emit the relations and charon when a response is received', () => {
-    const data = { relations: [], charon: {} };
-    const response = new HttpResponse({ body: data });
-    const eventSpy = spyOn(eventManager, 'broadcast');
-    const getSessionSpy = spyOn(sessionService, 'getSession').and.returnValue(of({ token: '123' }));
+describe('startCharon', () => {
+  it('should emit the relations and charon session when a response is received', () => {
+    const relations = [{ rel: 'some_rel', href: 'some_href' }];
+    const charonSession = 'some_session';
+    const response = {
+      type: 'response',
+      headers: {
+        get: jest.fn().mockReturnValue(charonSession),
+      },
+    } as any;
 
-    backend.connections.subscribe((connection: MockConnection) => {
-      expect(connection.request.url).toContain('/api/test');
-      expect(connection.request.headers.get('Authorization')).toEqual('Bearer 123');
-      connection.mockRespond(response);
-    });
+    charonServiceMock.initialize.mockReturnValue({
+      subscribe: jest.fn((callback) => {
+        callback(response);
+      }),
+    } as any);
+    charonServiceMock.getRelations.mockReturnValue(relations);
 
-    service.getTest().subscribe(() => {
-      expect(getSessionSpy).toHaveBeenCalled();
-      expect(eventSpy).toHaveBeenCalledWith('testFetched', data);
-    });
+    const emitlistSpy = jest.spyOn(caronteService.emitList, 'next');
+    const getSessionSpy = jest.spyOn(caronteService.getSession, 'next');
+
+    caronteService.startCharon('some_token');
+
+    expect(emitlistSpy).toHaveBeenCalledWith(relations);
+    expect(getSessionSpy).toHaveBeenCalledWith(charonSession);
   });
+});
